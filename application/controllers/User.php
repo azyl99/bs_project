@@ -38,7 +38,7 @@ class User extends CI_Controller
 	public function register()
 	{
 		$data['type'] = '用户';
-		$data['subtype'] = '登录';
+		$data['subtype'] = '注册';
 		
 		$this->form_validation->set_rules('username', 'username', 'callback_username_check');
 		$this->form_validation->set_rules('password', 'password', 'trim|callback_password_check');
@@ -64,6 +64,29 @@ class User extends CI_Controller
 			$this->session->set_userdata("username", $this->input->post('username'));
             redirect(site_url('news'));
 		}
+	}	
+	public function logout()
+	{
+		$this->session->unset_userdata("username");
+		redirect(site_url('news'));
+	}
+	
+	public function preference()
+	{
+		if (!isset($_SESSION['username'])) {
+			echo '<p>请先<a href="'.site_url('user/login').'">登录</a></p>';
+			return;
+		}
+		$username = $_SESSION['username'];
+		
+		$data['type'] = '用户';
+		$data['subtype'] = '偏好设置';
+		$data['user_prefs'] = $this->user_model->get_preference($username);
+		
+		$preferences = $this->input->post("options[]");
+		$this->user_model->set_preference($username, $preferences);
+		
+		$this->load->view('preference.html', $data);
 	}
 	
 	
@@ -121,7 +144,6 @@ class User extends CI_Controller
 	// 注册时邮箱是否已存在
     public function email_exist($str)
     {
-		echo 1;
         if($this->user_model->existEmail($str))
         {
             $this->form_validation->set_message('email_exist', '该邮箱已被注册');
@@ -145,10 +167,5 @@ class User extends CI_Controller
         }
         return TRUE;
     }
-	
-	public function logout()
-	{
-		$this->session->unset_userdata("username");
-		redirect(site_url('news'));
-	}
+
 }
