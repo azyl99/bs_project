@@ -44,7 +44,7 @@ class User extends CI_Controller
 		$this->form_validation->set_rules('password', 'password', 'trim|callback_password_check');
 		$this->form_validation->set_rules('password2', 'password2', 'required|matches[password]',
 			array('required' => '确认密码不能为空', 'matches' => '两次输入的密码不一致'));
-		$this->form_validation->set_rules('email', 'email', 'required|valid_email',
+		$this->form_validation->set_rules('email', 'email', 'required|valid_email|callback_email_exist',
 			array('required' => '邮箱不能为空', 'valid_email' => '邮箱格式错误'));
 	
 		/**
@@ -94,7 +94,7 @@ class User extends CI_Controller
         return TRUE;
     }
 	
-	// 注册时，注册时输入的用户名的合法性
+	// 注册时输入的用户名的合法性
     public function username_check($str)
     {
         if (strlen($str) == 0)
@@ -113,13 +113,24 @@ class User extends CI_Controller
         // }
         if($this->user_model->existUserName($str))
         {
-            $this->form_validation->set_message('username_check', '用户名已存在');
+            $this->form_validation->set_message('username_check', '该用户名已被注册');
+            return FALSE;
+        }
+        return TRUE;
+    }
+	// 注册时邮箱是否已存在
+    public function email_exist($str)
+    {
+		echo 1;
+        if($this->user_model->existEmail($str))
+        {
+            $this->form_validation->set_message('email_exist', '该邮箱已被注册');
             return FALSE;
         }
         return TRUE;
     }
 	
-	// 注册时，注册时输入的密码的合法性
+	// 注册时输入的密码的合法性
     public function password_check($str)
     {
         if (strlen($str) == 0)
