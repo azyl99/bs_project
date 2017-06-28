@@ -81,13 +81,14 @@ class User extends CI_Controller
 		}
 		
 		$username = $_SESSION['username'];
-		$data['user_prefs'] = $this->user_model->get_preference($username);
 		
 		$preferences = $this->input->post('options[]');
 		if (isset($preferences)) {
 			$preferences = $this->input->post('options[]');
 			$this->user_model->set_preference($username, $preferences);
 		}
+		
+		$data['user_prefs'] = $this->user_model->get_preference($username);
 		
 		$this->load->view('preference.html', $data);
 	}
