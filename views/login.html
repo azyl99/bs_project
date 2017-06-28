@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+<link href="../../views/css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="../../views/js/jquery.min.js"></script>
+<!-- Custom Theme files -->
+<link href="../../views/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Express News Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- for bootstrap working -->
+	<script type="text/javascript" src="../../views/js/bootstrap.js"></script>
+<!-- //for bootstrap working -->
+<!-- web-fonts -->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+<script src="../../views/js/responsiveslides.min.js"></script>
+	<script>
+		$(function () {
+		  $("#slider").responsiveSlides({
+			auto: true,
+			nav: true,
+			speed: 500,
+			namespace: "callbacks",
+			pager: true,
+		  });
+		});
+	</script>
+	<script type="text/javascript" src="../../views/js/move-top.js"></script>
+<script type="text/javascript" src="../../views/js/easing.js"></script>
+<!--/script-->
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+				});
+			});
+</script>
+</head>
+<body>
+<!-- header-section-starts-here -->
+	<div class="header">
+		<div class="header-top">
+			<div class="wrap">
+				<div class="top-menu">
+					<ul>
+						<li><a href="<?php echo site_url('news'); ?>">首页</a></li>
+						<li><a href="<?php echo site_url('user/preference'); ?>">偏好设置</a></li>
+						<li><a href="<?php echo site_url('user/register'); ?>">注册</a></li>
+						<?php 
+							if(!isset($_SESSION['username']))
+								echo '<li><a href="'.site_url('user/login').'">登录</a></li>';
+							else 
+								echo '<li><a href="'.site_url('user/logout').'">退出登录</a></li>';
+						?>
+					</ul>
+				</div>
+				<div class="num">
+					<?php 
+						if(!isset($_SESSION['username']))
+							echo '<p> 请登录 </p>';
+						else 
+							echo '<p> 用户：'.$_SESSION['username'].'</p>';
+					?>
+					
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="header-bottom">
+			<div class="logo text-center">
+				<a href="<?php echo site_url('news/index'); ?>"><img src="../../views/images/logo.jpg" alt="" /></a>
+			</div>
+			<div class="navigation">
+				<nav class="navbar navbar-default" role="navigation">
+		   <div class="wrap">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				
+			</div>
+			<!--/.navbar-header-->
+		
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="<?php echo $type=='首页'? 'active' :''?>"><a href="<?php echo site_url('news'); ?>">首页</a></li>
+					<li class="dropdown <?php echo $type=='新闻'? 'active' :''?> ">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">新闻<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="<?php echo site_url("news?type=新闻&subtype=国内要闻"); ?>">国内要闻</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=新闻&subtype=国际要闻"); ?>">国际要闻</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=新闻&subtype=港澳台新闻"); ?>">港澳台新闻</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=新闻&subtype=奇闻轶事"); ?>">奇闻轶事</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=新闻&subtype=社会万象"); ?>">社会万象</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=新闻&subtype=社会与法"); ?>">社会与法</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=新闻"); ?>">综合</a></li>
+						</ul>
+					</li>
+				    <li class="dropdown <?php echo $type=='军事'? 'active' :''?> ">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">军事<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="<?php echo site_url("news?type=军事&subtype=中国军情"); ?>">中国军情</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=军事&subtype=军事要闻汇总"); ?>">军事要闻汇总</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=军事&subtype=焦点新闻"); ?>">焦点新闻</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=军事"); ?>">综合</a></li>
+						</ul>
+					</li>
+					<li class="dropdown <?php echo $type=='娱乐'? 'active' :''?> ">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">娱乐<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="<?php echo site_url("news?type=娱乐&subtype=港台明星"); ?>">港台明星</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=娱乐&subtype=港台明星"); ?>">港台明星</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=娱乐&subtype=日韩明星"); ?>">日韩明星</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=娱乐&subtype=欧美明星"); ?>">欧美明星</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=娱乐"); ?>">综合</a></li>
+						</ul>
+					</li>
+					<li class="dropdown <?php echo $type=='教育'? 'active' :''?> ">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">教育<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="<?php echo site_url("news?type=教育&subtype=高考"); ?>">高考</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=教育&subtype=中考"); ?>">中考</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=教育&subtype=考研"); ?>">考研</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=教育&subtype=英语考试"); ?>">英语考试</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=教育&subtype=会计考试"); ?>">会计考试</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=教育&subtype=司法考试"); ?>">司法考试</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=教育"); ?>">综合</a></li>
+						</ul>
+					</li>
+					<li class="dropdown <?php echo $type=='科技'? 'active' :''?> ">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">科技<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="<?php echo site_url("news?type=科技&subtype=数码资讯"); ?>">数码资讯</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=科技&subtype=科技下载"); ?>">科技下载</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=科技&subtype=科普要闻"); ?>">科普要闻</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=科技&subtype=笔记本新闻"); ?>">笔记本新闻</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=科技&subtype=科技要闻汇总"); ?>">科技要闻汇总</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=科技"); ?>">综合</a></li>
+						</ul>
+					</li>
+					<li class="dropdown <?php echo $type=='游戏'? 'active' :''?> ">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">游戏<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="<?php echo site_url("news?type=游戏&subtype=游戏产业新闻"); ?>">游戏产业新闻</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=游戏&subtype=迷你游戏"); ?>">迷你游戏</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=游戏"); ?>">综合</a></li>
+						</ul>
+					</li>
+					<li class="dropdown <?php echo $type=='房产'? 'active' :''?> ">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">房产<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="<?php echo site_url("news?type=房产&subtype=家居－家居新闻"); ?>">家居－家居新闻</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=房产&subtype=家居－家饰生活"); ?>">家居－家饰生活</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=房产&subtype=家居－设计风尚"); ?>">家居－设计风尚</a></li>
+							<li class="divider"></li>
+							<li><a href="<?php echo site_url("news?type=房产"); ?>">综合</a></li>
+						</ul>
+					</li>
+					<li <?php echo $type=='体育'? 'active' :''?> >
+						<a href="<?php echo site_url("news?type=体育"); ?>">体育</a>
+					</li>
+					<!--
+					<li class="dropdown">
+						<a href="business.html" class="dropdown-toggle" data-toggle="dropdown">Business<b class="caret"></b></a>
+						<ul class="dropdown-menu multi-column columns-2">
+							<div class="row">
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<li><a href="business.html">Action</a></li>
+										<li class="divider"></li>
+										<li><a href="business.html">bulls</a></li>
+									    <li class="divider"></li>
+										<li><a href="business.html">markets</a></li>
+										<li class="divider"></li>
+										<li><a href="business.html">Reviews</a></li>
+										<li class="divider"></li>
+										<li><a href="shortcodes.html">Short codes</a></li>
+									</ul>
+								</div>
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+									   <li><a href="business.html">features</a></li>	
+										<li class="divider"></li>
+										<li><a href="entertainment.html">Movies</a></li>
+									    <li class="divider"></li>
+										<li><a href="sports.html">sports</a></li>
+										<li class="divider"></li>
+										<li><a href="business.html">Reviews</a></li>
+										<li class="divider"></li>
+										<li><a href="business.html">Stock</a></li>
+									</ul>
+								</div>
+							</div>
+						</ul>
+					</li>
+					-->
+					<div class="clearfix"></div>
+				</ul>
+				<div class="search">
+					<!-- start search-->
+				    <div class="search-box">
+					    <div id="sb-search" class="sb-search">
+							<form>
+								<input class="sb-search-input" placeholder="Enter your search term..." type="search" name="search" id="search">
+								<input class="sb-search-submit" type="submit" value="">
+								<span class="sb-icon-search"> </span>
+							</form>
+						</div>
+				    </div>
+					<!-- search-scripts -->
+					<script src="../../views/js/classie.js"></script>
+					<script src="../../views/js/uisearch.js"></script>
+						<script>
+							new UISearch( document.getElementById( 'sb-search' ) );
+						</script>
+					<!-- //search-scripts -->
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<!--/.navbar-collapse-->
+	 <!--/.navbar-->
+			</div>
+		</nav>
+		</div>
+	</div>
+<!-- header-section-ends-here -->
+	<!-- content-section-starts-here -->
+	<div class="main-body">
+		<div class="wrap">
+			<!--contact-section-starts-->
+				<div class="contact-section">
+	 <div class="contact_grid" >
+	 	  <div class="col-md-5"  >
+					<div class="newsletter">
+						<h1 class="side-title-head">登录</h1>
+						<form method = "post" ><!-- 没有指定action，默认当前页面处理 -->
+							<b><?php echo form_error('username'); ?></b>
+							<input type="text" class="text" name="username" placeholder='User Name'>
+							<b><?php echo form_error('password'); ?></b>
+							<input type="password" class="text" name="password" placeholder='Password'>
+							<input type="submit" class="text">
+						</form>
+					</div>
+         </div>
+		<div class="clearfix"></div>
+     </div>
+</div>
+
+			<!--contact-section-ends-->
+		</div>
+		</div>
+	<!-- content-section-ends-here -->
+	<!-- footer-section-starts-here -->
+	<div class="footer">
+		<div class="footer-bottom">
+			<div class="wrap">
+				<div class="copyrights col-md-6">
+					<p>Copyright &copy; 2015.Company name All rights reserved.<a target="_blank" href="http://www.cssmoban.com/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+				</div>
+				<div class="footer-social-icons col-md-6">
+					<ul>
+						<li><a class="facebook" href="#"></a></li>
+						<li><a class="twitter" href="#"></a></li>
+						<li><a class="flickr" href="#"></a></li>
+						<li><a class="googleplus" href="#"></a></li>
+						<li><a class="dribbble" href="#"></a></li>
+					</ul>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<!-- footer-section-ends-here -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+				/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+				*/
+		$().UItoTop({ easingType: 'easeOutQuart' });
+});
+</script>
+<a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+<!---->
+</body>
+</html>
