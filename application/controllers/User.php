@@ -42,10 +42,12 @@ class User extends CI_Controller
 		$data['type'] = '用户';
 		$data['subtype'] = '登录';
 		
-		$this->form_validation->set_rules('username', '用户名', 'callback_username_check');
+		$this->form_validation->set_rules('username', 'username', 'callback_username_check');
 		$this->form_validation->set_rules('password', 'password', 'trim|callback_password_check');
 		$this->form_validation->set_rules('password2', 'password2', 'required|matches[password]',
 			array('required' => '确认密码不能为空', 'matches' => '两次输入的密码不一致'));
+		$this->form_validation->set_rules('email', 'email', 'required|valid_email',
+			array('required' => '邮箱不能为空', 'valid_email' => '邮箱格式错误'));
 	
 		/**
 		* 如果输入的用户名、密码、第二次密码不合法，则重新加载注册界面
