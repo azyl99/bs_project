@@ -2,7 +2,7 @@
 
 class User extends CI_Controller
 {
-	private $temp_user = '';
+	private $temp_user = 'what?';
 	
     public function __construct()
     {
@@ -14,13 +14,12 @@ class User extends CI_Controller
 	
     public function login()
     {
-		$temp_user = $this->input->post("username");
+		$this->temp_user = $this->input->post("username");
 		$data['type'] = '用户';
 		$data['subtype'] = '登录';
 		
         $this->form_validation->set_rules('username', '用户名', 'callback_username_exist');
-        $this->form_validation->set_rules('password', '密码', 'callback_validate');
-        $this->form_validation->set_rules('password', '密码', 'required',
+        $this->form_validation->set_rules('password', '密码', 'required|callback_validate',
             array('required' => '{field}不能为空'));
 		
 		// 错误
@@ -72,7 +71,6 @@ class User extends CI_Controller
     // 登录时，检查用户名是否存在
     public function username_exist($str)
     {
-		echo 1;
         if (strlen($str) == 0)
         {
             $this->form_validation->set_message('username_exist', '用户名不能为空');
@@ -88,7 +86,6 @@ class User extends CI_Controller
 	// 登录时，检查用户名密码是否匹配
     public function validate($str)
     {
-		echo 2;
 		$username = $this->temp_user;
         if(!$this->user_model->validate($username, $str))
         {
@@ -144,10 +141,4 @@ class User extends CI_Controller
 		$this->session->unset_userdata("username");
 		redirect(site_url('news'));
 	}
-	
-	
-	
-	
-	
-	
 }
