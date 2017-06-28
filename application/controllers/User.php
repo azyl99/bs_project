@@ -73,18 +73,21 @@ class User extends CI_Controller
 	
 	public function preference()
 	{
+		$data['type'] = '用户';
+		$data['subtype'] = '偏好设置';
 		if (!isset($_SESSION['username'])) {
 			echo '<p>请先<a href="'.site_url('user/login').'">登录</a></p>';
 			return;
 		}
-		$username = $_SESSION['username'];
 		
-		$data['type'] = '用户';
-		$data['subtype'] = '偏好设置';
+		$username = $_SESSION['username'];
 		$data['user_prefs'] = $this->user_model->get_preference($username);
 		
-		$preferences = $this->input->post("options[]");
-		$this->user_model->set_preference($username, $preferences);
+		$preferences = $this->input->post('options[]');
+		if (isset($preferences)) {
+			$preferences = $this->input->post('options[]');
+			$this->user_model->set_preference($username, $preferences);
+		}
 		
 		$this->load->view('preference.html', $data);
 	}
