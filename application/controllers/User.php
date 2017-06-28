@@ -31,8 +31,7 @@ class User extends CI_Controller
         {
             $username  = $this->input->post("username");
             $this->session->set_userdata("username", $username);
-            // redirect(site_url('news'));
-			$this->load->view('login.html', $data);
+            redirect(site_url('news'));
         }
     }
 	
