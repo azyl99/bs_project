@@ -18,7 +18,7 @@ class News_model extends CI_Model
 		$query = $this->db->query($sql);
 		$cnts = array();
 		foreach ($query->result() as $row) {
-			$cnts[$row->type] = 50*$row->cnt;//直接插入
+			$cnts[$row->type] = $row->cnt;//直接插入
 		}
 		// var_dump($cnts);
 		
@@ -39,13 +39,13 @@ class News_model extends CI_Model
 		foreach ($query->result() as $row) {
 			$w = 0;
 			if (array_key_exists($row->type, $cnts))
-				$w = $w + $cnts[$row->type];
+				$w = $w + 100*$cnts[$row->type];
 			if (array_key_exists($row->type, $prefs))
-				$w = $w + 400;
+				$w = $w + 600;
 			$w = $w + $i;
 			$weights[] = $w;
 			$news[] = array("title"=>$row->title,"text"=>$row->text,"link"=>$row->link,
-					"type"=>$row->type, "subtype"=>$row->subtype,"time"=>$row->time, "weight"=>round($w/30));// 精度为30
+					"type"=>$row->type, "subtype"=>$row->subtype,"time"=>$row->time, "weight"=>round($w/59));// 精度为59
 			$i = $i - 1;
 		}
 		array_multisort($weights, SORT_DESC, SORT_NUMERIC, $news);

@@ -134,10 +134,10 @@ class User extends CI_Controller
             $this->form_validation->set_message('username_check', '用户名应该由6~20个字符组成');
             return FALSE;
         }
-        // if(!preg_match('/^[a-zA-Z][a-zA-Z0-9_]*$/', $str)){
-            // $this->form_validation->set_message('username_check', '用户名应该由字母开头，并由字母、数字和下划线组成');
-            // return FALSE;
-        // }
+        if(!preg_match('/^[a-zA-Z][a-zA-Z0-9_]*$/', $str)){
+            $this->form_validation->set_message('username_check', '用户名应该由字母开头，并由字母、数字和下划线组成');
+            return FALSE;
+        }
         if($this->user_model->existUserName($str))
         {
             $this->form_validation->set_message('username_check', '该用户名已被注册');
@@ -166,7 +166,7 @@ class User extends CI_Controller
         }
         if (strlen($str) < 6 || strlen($str) > 20)
         {
-            $this->form_validation->set_message('password_check', '密码应该由6~20个字符组成，区分大小写');
+            $this->form_validation->set_message('password_check', '密码应该由6~20个字符组成');
             return FALSE;
         }
         return TRUE;
